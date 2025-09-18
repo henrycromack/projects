@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudo de Performance de Produtos | Larroudé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Tipografia de Destaque */
+        .font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+
+        /* Cores da Marca */
+        .larroude-pink { color: #E9519F; }
+        .bg-larroude-pink { background-color: #E9519F; }
+
+        /* Seções */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        /* Animação para Recoloring */
+        .recoloring-container {
+            position: relative;
+            width: 100%;
+            padding-top: 100%; /* Aspect ratio 1:1 */
+            background-color: #f0f0f0;
+        }
+        .recoloring-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: fadeEffect 9s infinite;
+        }
+        .recoloring-container img:nth-child(1) { animation-delay: 0s; }
+        .recoloring-container img:nth-child(2) { animation-delay: 3s; }
+        .recoloring-container img:nth-child(3) { animation-delay: 6s; }
+
+        @keyframes fadeEffect {
+            0% { opacity: 0; transform: scale(1); }
+            16.66% { opacity: 1; transform: scale(1.05); }
+            33.33% { opacity: 0; transform: scale(1); }
+            100% { opacity: 0; }
+        }
+
+        /* Estilo do Roadmap */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2.5rem;
+            padding-left: 2.5rem;
+            border-left: 2px solid #e5e7eb;
+        }
+        .timeline-item:last-child {
+            border-left-color: transparent;
+        }
+        .timeline-marker {
+            position: absolute;
+            top: 5px;
+            left: -9px;
+            height: 16px;
+            width: 16px;
+            background-color: #E9519F;
+            border-radius: 9999px;
+            border: 2px solid #fff;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-color: #E9519F;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #E9519F;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .section-title:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center text-white bg-black">
+        <div class="absolute inset-0 bg-cover bg-center opacity-50" style="background-image: url('https://i.ibb.co/Ps3GCvnP/BVH-Larroude-Stills-1910.jpg');"></div>
+        <div class="relative z-10 text-center p-4">
+            <p class="font-semibold tracking-widest larroude-pink">PROJETO DE PERFORMANCE</p>
+            <h1 class="font-anton text-7xl md:text-9xl lg:text-[10rem] my-4 tracking-tight leading-none" style="text-transform: none;">Hit or hype<span class="larroude-pink">?</span></h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto">Uma análise profunda para decodificar a performance dos nossos produtos e otimizar o futuro.</p>
+        </div>
+    </header>
+
+    <!-- Impact Section -->
+    <section class="bg-black text-white text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-playfair text-4xl md:text-5xl leading-tight">"honey, we'll find out what's going on"</h2>
+            <p class="mt-4 text-lg font-light uppercase tracking-widest">CROMACK, HENRY (2025)</p>
+        </div>
+    </section>
+
+    <!-- Objetivos Section -->
+    <section id="objetivos">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <h3 class="font-anton text-4xl mb-6 section-title">NOSSO FOCO</h3>
+                <p class="text-lg text-gray-600 mb-6">Analisar de forma robusta o desempenho dos produtos, identificando padrões de venda e fatores de sucesso por categoria, criando a base para um futuro estudo de ciclo de vida do produto.</p>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 larroude-pink"></i>Mapear desempenho por categoria.</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 larroude-pink"></i>Avaliar KPIs essenciais (Sell-through, margem).</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 larroude-pink"></i>Identificar atributos de sucesso.</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-5 h-5 mr-3 larroude-pink"></i>Estruturar um calendário de lançamento data-driven.</li>
+                </ul>
+            </div>
+            <div class="order-1 md:order-2">
+                <img src="https://i.ibb.co/84zFHskJ/image.png" alt="Modelo usando sapato Larroudé" class="w-full h-auto">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Conceitos Básicos Section -->
+    <section id="conceitos" class="py-16 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="font-anton text-4xl mb-12 section-title">CONCEITOS FUNDAMENTAIS</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <!-- Amplitude -->
+                <div class="relative group aspect-video overflow-hidden">
+                    <img src="https://i.ibb.co/BVtrbBD4/BVH-Larroude-Stills-1762.jpg" alt="Mulher em um vestido estampado sentada em um sofá, representando a variedade de linhas de produto." class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6 text-white">
+                        <h4 class="font-playfair text-2xl mb-2">Amplitude</h4>
+                        <p class="text-sm">Quantas linhas de produto nós temos?</p>
+                    </div>
+                </div>
+                <!-- Profundidade -->
+                <div class="relative group aspect-video overflow-hidden">
+                    <img src="https://i.ibb.co/bMSBFFqZ/Pro-Capture-One-0083-4-Easy-Resize-com.jpg" alt="Vários sapatos de salto alto coloridos alinhados, mostrando a profundidade de SKUs." class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6 text-white">
+                        <h4 class="font-playfair text-2xl mb-2">Profundidade</h4>
+                        <p class="text-sm">Quantas variações (SKUs) cada linha oferece?</p>
+                    </div>
+                </div>
+                <!-- Comprimento -->
+                <div class="relative group aspect-video overflow-hidden">
+                    <img src="https://i.ibb.co/xKm2BKBP/L144-VERO-NATU-2077-Easy-Resize-com.jpg" alt="Uma coleção grande de sapatos dispostos em prateleiras, simbolizando o comprimento total do portfólio." class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6 text-white">
+                        <h4 class="font-playfair text-2xl mb-2">Comprimento</h4>
+                        <p class="text-sm">Quantos itens no total compõem nosso portfólio?</p>
+                    </div>
+                </div>
+                <!-- Volume -->
+                <div class="relative group aspect-video overflow-hidden">
+                    <img src="https://i.ibb.co/yBWgk0LV/LARROUDE2682.jpg" alt="Caixas de sapato empilhadas prontas para envio, representando o volume de vendas." class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6 text-white">
+                        <h4 class="font-playfair text-2xl mb-2">Volume</h4>
+                        <p class="text-sm">Quanto nós realmente vendemos de todo esse portfólio?</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Coerência -->
+            <div class="mt-4 relative group h-64 overflow-hidden text-left">
+                 <img src="https://i.ibb.co/xq7XBTjC/Main-banner-DESKTOP-SECONDARY.jpg" alt="Composição artística com diferentes estilos de sapatos, questionando a coerência da marca." class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-center p-6 text-white">
+                    <h4 class="font-playfair text-4xl mb-3">Coerência</h4>
+                    <p class="max-w-lg">Faz sentido todos esses produtos estarem sob a mesma marca?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Perguntas de Pesquisa Section -->
+    <section id="perguntas">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="font-anton text-4xl mb-10 section-title">PERGUNTAS-CHAVE</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div class="border border-gray-200 p-8 transition-all duration-300 question-card">
+                    <p class="font-playfair text-2xl mb-2 text-gray-800">Q1</p>
+                    <p class="font-semibold text-xl">Qual a proporção ideal de lançamentos Novo/Recoloring/Collab/Product Merge para o ano?</p>
+                </div>
+                <div class="border border-gray-200 p-8 transition-all duration-300 question-card">
+                    <p class="font-playfair text-2xl mb-2 text-gray-800">Q2</p>
+                    <p class="font-semibold text-xl">Qual a quantidade de SKUs recomendada em cada tipo de lançamento?</p>
+                </div>
+                <div class="border border-gray-200 p-8 transition-all duration-300 question-card">
+                    <p class="font-playfair text-2xl mb-2 text-gray-800">Q3</p>
+                    <p class="font-semibold text-xl">Como equilibrar lançamentos comerciais, que sustentam o caixa, com lançamentos de branding, que reforçam posicionamento?</p>
+                </div>
+                <div class="border border-gray-200 p-8 transition-all duration-300 question-card">
+                     <p class="font-playfair text-2xl mb-2 text-gray-800">Q4</p>
+                    <p class="font-semibold text-xl">Quais KPIs avaliar em cada tipo (ex.: margem e sell-through para comercial, alcance e PR value para branding)?</p>
+                </div>
+                <div class="md:col-span-2 border border-gray-200 p-8 transition-all duration-300 question-card">
+                    <p class="font-playfair text-2xl mb-2 text-gray-800">Q5</p>
+                    <p class="font-semibold text-xl">Quantos SKUs precisamos ter em cada lançamento?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorias Section -->
+    <section id="categorias" class="bg-gray-50">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="font-anton text-4xl mb-12 section-title">DISSECANDO NOSSAS CATEGORIAS</h3>
+            
+            <!-- Novo Produto -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 text-left">
+                <div>
+                    <h4 class="font-anton text-3xl mb-4">New Product</h4>
+                    <p class="text-gray-600 text-lg">A aposta no inédito. Analisamos o ciclo de vida completo de um lançamento do zero, desde a aceitação inicial até a estabilização das vendas, para entender os drivers de sucesso para produtos completamente novos.</p>
+                </div>
+                <div>
+                     <img src="https://i.ibb.co/k6MD2NPV/4-V6-A0999-copiar.jpg" alt="Sapato Larroudé sendo fotografado em estúdio, representando um novo produto" class="w-full h-auto">
+                </div>
+            </div>
+
+            <!-- Recoloring -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 text-left">
+                <div class="recoloring-container">
+                    <img src="https://larroude.com/cdn/shop/files/L294-INES-WINE-0804_1_7fd306ba-00c6-4e7a-8928-bfd5ab42cc87.webp?v=1740164384&width=650" alt="Sapato Ines na cor vinho">
+                    <img src="https://larroude.com/cdn/shop/files/L294-INES-DARK-2348_1_d29769ea-92fb-41d6-9468-2c289ba6f12f.webp?v=1756848022&width=650" alt="Sapato Ines na cor escura">
+                    <img src="https://larroude.com/cdn/shop/files/L294-INES-SCAR-1247_1_2eedaae1-04c4-4438-8908-022f59b21323.webp?v=1740164414&width=650" alt="Sapato Ines na cor vermelha">
+                </div>
+                <div>
+                    <h4 class="font-anton text-3xl mb-4">Recoloring</h4>
+                    <p class="text-gray-600 text-lg">Analisar a performance de novas cores em modelos existentes. O objetivo é entender o impacto incremental de cada variação e o intervalo ótimo entre lançamentos para evitar a canibalização e manter o frescor da linha.</p>
+                </div>
+            </div>
+
+            <!-- Product Merge -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 text-left">
+                 <div class="order-2 md:order-1 md:text-right">
+                    <h4 class="font-anton text-3xl mb-4">Product Merge</h4>
+                    <p class="text-gray-600 text-lg">A sinergia de best-sellers. Quando dois ou mais produtos se unem em um novo SKU, medimos se a soma é maior que as partes, avaliando a performance e o canibalismo em relação aos produtos originais.</p>
+                </div>
+                <div class="order-1 md:order-2">
+                    <img src="https://i.ibb.co/BHvLQy0C/L504-DOLL- BURN-2353-3.webp" alt="Bota de cano alto, representando a fusão de produtos" class="w-full h-auto">
+                </div>
+            </div>
+
+            <!-- Collab -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16 text-left">
+                <div class="recoloring-container bg-cover bg-center" style="background-image: url('https://larroude.com/cdn/shop/files/IMG_4923.jpg?v=1745846397&width=650')">
+                </div>
+                <div>
+                    <h4 class="font-anton text-3xl mb-4">Collab</h4>
+                    <p class="text-gray-600 text-lg">Medir o sucesso de colaborações especiais. Avaliamos não apenas as vendas, mas também o "halo effect" na marca, o alcance em novas audiências e o engajamento gerado, para guiar futuras parcerias estratégicas.</p>
+                </div>
+            </div>
+
+            <!-- ReLaunch -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-left">
+                <div class="order-2 md:order-1">
+                    <h4 class="font-anton text-3xl mb-4">Re-Launch</h4>
+                    <p class="text-gray-600 text-lg">A segunda chance do sucesso. Analisamos a performance de produtos que retornam em pré-venda, medindo a demanda reprimida e o fôlego do item para entender seu verdadeiro potencial de longevidade no portfólio.</p>
+                </div>
+                <div class="order-1 md:order-2 recoloring-container">
+                     <img src="https://i.ibb.co/YTZCsgpm/The-supers-feed_carousel-01.png" alt="Campanha para o relançamento de um sapato">
+                     <img src="https://i.ibb.co/ZRQYpVkv/The_supers-feed_carousel-Artboard-1-copy-06.png" alt="Detalhe de sapato em campanha de relançamento">
+                     <img src="https://i.ibb.co/SwmFjGhH/The_supers-feed_carousel-04.png" alt="Outro detalhe de sapato em campanha de relançamento">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metodologia Section -->
+    <section id="metodologia" class="bg-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="font-anton text-4xl mb-12 section-title">NOSSA METODOLOGIA</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <!-- Step 1 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">01</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Análise de Performance Histórica</h4>
+                        <p class="text-gray-600">Análise de sell-through, margem, velocidade de venda, pre-stock e ticket médio por categoria.</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">02</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Modelagem de Capacidade e Ritmo</h4>
+                        <p class="text-gray-600">Estimar volume de lançamentos por trimestre, SKUs por drop e avaliar sazonalidade.</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">03</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Criação de Hipóteses</h4>
+                        <p class="text-gray-600">Formular hipóteses a partir dos dados descritivos para guiar as análises mais profundas.</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">04</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Segmentação e Clusterização</h4>
+                        <p class="text-gray-600">Agrupar produtos por curva de vendas para identificar padrões ocultos.</p>
+                    </div>
+                </div>
+                <!-- Step 5 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">05</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Definição de Padrões de Calendário</h4>
+                        <p class="text-gray-600">Estabelecer cadência sugerida entre tipos de lançamento (ex: novo → recoloring em X semanas).</p>
+                    </div>
+                </div>
+                <!-- Step 6 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">06</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Segmentação de Objetivos</h4>
+                        <p class="text-gray-600">Classificar lançamentos em <span class="font-bold">Comercial</span> vs. <span class="font-bold">Posicionamento</span> e associar KPIs adequados.</p>
+                    </div>
+                </div>
+                 <!-- Step 7 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">07</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Testes e Validação</h4>
+                        <p class="text-gray-600">Uso de testes estatísticos para comprovar diferenças e validar as hipóteses formuladas.</p>
+                    </div>
+                </div>
+                 <!-- Step 8 -->
+                <div class="bg-gray-50 border border-gray-200 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                    <span class="font-playfair text-8xl larroude-pink opacity-20 absolute -top-4 -right-4 z-0">08</span>
+                    <div class="relative z-10">
+                        <h4 class="font-bold text-xl mb-3">Criação do Ranking de Performance</h4>
+                        <p class="text-gray-600">Desenvolver um índice ponderado que considera os principais KPIs para classificar o sucesso.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entregáveis Section -->
+    <section id="entregaveis" class="bg-gray-50">
+        <div class="max-w-6xl mx-auto text-center">
+            <h3 class="font-anton text-4xl mb-12 section-title">ENTREGÁVEIS ESTRATÉGICOS</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div class="bg-white border border-gray-200 p-8">
+                    <i data-lucide="calendar-days" class="w-12 h-12 mb-4 larroude-pink"></i>
+                    <h4 class="font-bold text-xl mb-3">Plano Anual de Lançamentos</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Lançamentos por quarter e categoria.</li>
+                        <li>Volume de SKUs recomendado.</li>
+                        <li>Calendário sugerido para recoloring/merges.</li>
+                    </ul>
+                </div>
+                <div class="bg-white border border-gray-200 p-8">
+                    <i data-lucide="book-marked" class="w-12 h-12 mb-4 larroude-pink"></i>
+                    <h4 class="font-bold text-xl mb-3">Guia de Tipos de Lançamento</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Definição: Comercial vs. Posicionamento.</li>
+                        <li>KPIs específicos para cada objetivo.</li>
+                    </ul>
+                </div>
+                <div class="bg-white border border-gray-200 p-8">
+                    <i data-lucide="scale" class="w-12 h-12 mb-4 larroude-pink"></i>
+                    <h4 class="font-bold text-xl mb-3">Matriz de Equilíbrio Financeiro & Branding</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Framework de sustentabilidade de lançamentos.</li>
+                        <li>Proporção sugerida (ex: 60/40) para saúde financeira.</li>
+                    </ul>
+                </div>
+                <div class="bg-white border border-gray-200 p-8">
+                    <i data-lucide="bar-chart-3" class="w-12 h-12 mb-4 larroude-pink"></i>
+                    <h4 class="font-bold text-xl mb-3">Relatório Analítico de Performance</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Ranking de produtos e atributos de sucesso.</li>
+                        <li>Insights de estoque para basear pre-stock futuro.</li>
+                    </ul>
+                </div>
+                <div class="bg-white border border-gray-200 p-8 md:col-span-2">
+                    <i data-lucide="clipboard-list" class="w-12 h-12 mb-4 larroude-pink"></i>
+                    <h4 class="font-bold text-xl mb-3">Recomendações Operacionais</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Necessidades de time, processos e dados para evoluir.</li>
+                        <li>Plano para mapeamento de SKUs e integração com Metashop.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="font-anton text-4xl mb-12 section-title">ROADMAP</h3>
+            <div class="relative text-left">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <p class="font-bold text-gray-500 text-sm">SEMANA 1</p>
+                    <h4 class="font-semibold text-xl">Alinhamento inicial & definição de metas</h4>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <p class="font-bold text-gray-500 text-sm">SEMANAS 2-4</p>
+                    <h4 class="font-semibold text-xl">Coleta e análise de performance</h4>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <p class="font-bold text-gray-500 text-sm">SEMANAS 5-6</p>
+                    <h4 class="font-semibold text-xl">Estruturação do calendário e definição de padrões</h4>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <p class="font-bold text-gray-500 text-sm">SEMANAS 7-8</p>
+                    <h4 class="font-semibold text-xl">Desenvolvimento do plano final e recomendações</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Próximos Passos -->
+    <footer class="bg-black text-white">
+         <div class="max-w-6xl mx-auto py-16 px-4 text-center">
+            <h3 class="font-anton text-4xl mb-10 section-title">PRÓXIMOS PASSOS</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div class="border border-gray-700 p-8">
+                    <h4 class="font-bold text-2xl mb-4 flex items-center gap-3"><i data-lucide="rocket" class="w-8 h-8 larroude-pink"></i> Projeto de Ciclo de Vida do Produto</h4>
+                    <p class="text-gray-300">Usar os insights para definir as etapas do ciclo de vida dos produtos e otimizar o calendário de futuros lançamentos.</p>
+                </div>
+                 <div class="border border-gray-700 p-8">
+                    <h4 class="font-bold text-2xl mb-4 flex items-center gap-3"><i data-lucide="link" class="w-8 h-8 larroude-pink"></i> Integração de Dados de Mídia</h4>
+                    <p class="text-gray-300">Após a padronização, incluir o investimento de mídia para uma análise 360° da performance e atribuição.</p>
+                </div>
+            </div>
+            <div class="text-center mt-16">
+                 <p class="font-anton text-5xl">OBRIGADO<span class="larroude-pink">.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
