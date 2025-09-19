@@ -17,14 +17,12 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-       
+        
         .font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
         .font-playfair { font-family: 'Playfair Display', serif; }
 
-
         .larroude-pink { color: #E9519F; }
         .bg-larroude-pink { background-color: #E9519F; }
-
 
         .timeline-item {
             position: relative;
@@ -52,13 +50,11 @@
             font-weight: bold;
         }
 
-
         .section-title {
             position: relative;
             display: inline-block;
             padding-bottom: 8px;
         }
-
 
         .section-title::after {
             content: '';
@@ -71,20 +67,16 @@
             transition: width 0.3s ease-in-out;
         }
 
-
         .section-title:hover::after {
             width: 100%;
         }
 
-
         #raciModal { transition: opacity 0.3s ease; }
         #loader { transition: opacity 0.3s ease; }
-
 
     </style>
 </head>
 <body class="bg-gray-50">
-
 
     <!-- Navigation Menu -->
     <nav class="bg-black text-white sticky top-0 z-50 shadow-md">
@@ -142,7 +134,6 @@
         </div>
     </nav>
 
-
     <!-- Hero Section -->
     <header class="relative min-h-[60vh] flex items-center justify-center text-white bg-black">
         <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('https://i.ibb.co/84zFHskJ/image.png');"></div>
@@ -153,11 +144,45 @@
         </div>
     </header>
 
-
     <!-- Main Content -->
     <main class="py-24 px-4 md:px-8">
         <div class="max-w-4xl mx-auto">
-           
+            
+            <!-- RACI Explanation -->
+            <div class="mb-20 text-center">
+                <h2 class="font-anton text-3xl mb-12 section-title">ENTENDENDO A MATRIZ RACI</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- R -->
+                    <div class="border border-gray-200 p-6 rounded-lg hover:shadow-lg transition-shadow bg-white">
+                        <h3 class="font-anton text-5xl larroude-pink">R</h3>
+                        <p class="font-semibold text-lg mt-2">Responsible</p>
+                        <p class="text-gray-500 text-sm">(Responsável)</p>
+                        <p class="mt-4 text-gray-600 text-sm">Quem "coloca a mão na massa" e executa a tarefa.</p>
+                    </div>
+                    <!-- A -->
+                    <div class="border border-gray-200 p-6 rounded-lg hover:shadow-lg transition-shadow bg-white">
+                        <h3 class="font-anton text-5xl larroude-pink">A</h3>
+                        <p class="font-semibold text-lg mt-2">Accountable</p>
+                        <p class="text-gray-500 text-sm">(Aprovador)</p>
+                        <p class="mt-4 text-gray-600 text-sm">O único dono da tarefa, quem tem a palavra final e aprova.</p>
+                    </div>
+                    <!-- C -->
+                    <div class="border border-gray-200 p-6 rounded-lg hover:shadow-lg transition-shadow bg-white">
+                        <h3 class="font-anton text-5xl larroude-pink">C</h3>
+                        <p class="font-semibold text-lg mt-2">Consulted</p>
+                        <p class="text-gray-500 text-sm">(Consultado)</p>
+                        <p class="mt-4 text-gray-600 text-sm">Quem deve ser ouvido para dar opiniões e contribuir com sua expertise.</p>
+                    </div>
+                    <!-- I -->
+                    <div class="border border-gray-200 p-6 rounded-lg hover:shadow-lg transition-shadow bg-white">
+                        <h3 class="font-anton text-5xl larroude-pink">I</h3>
+                        <p class="font-semibold text-lg mt-2">Informed</p>
+                        <p class="text-gray-500 text-sm">(Informado)</p>
+                        <p class="mt-4 text-gray-600 text-sm">Quem é mantido atualizado sobre o progresso.</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Overall Progress Bar -->
             <div class="mb-16 bg-white p-6 rounded-lg shadow-md border border-gray-200">
                 <h2 class="font-anton text-2xl mb-4 text-center">PROGRESSO GERAL DO PROJETO</h2>
@@ -183,20 +208,17 @@
                 </div>
             </div>
 
-
             <!-- Timeline Container -->
             <div id="timelineContainer" class="relative">
                 <!-- Fases serão renderizadas aqui pelo JavaScript -->
             </div>
 
-
         </div>
     </main>
-   
+    
     <footer class="bg-black text-white text-center py-16 px-4">
         <p class="font-anton text-5xl">OBRIGADO<span class="larroude-pink">.</span></p>
     </footer>
-
 
     <!-- Modal -->
     <div id="raciModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center p-4 z-50">
@@ -223,7 +245,7 @@
             </div>
         </div>
     </div>
-   
+    
     <!-- Loader -->
     <div id="loader" class="fixed inset-0 bg-white bg-opacity-80 flex items-center justify-center z-[60]">
         <div class="text-center">
@@ -233,21 +255,16 @@
     </div>
 
 
-
-
     <script>
         // COLE AQUI O SEU URL DO GOOGLE APPS SCRIPT
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymNoOCPXrL_FVYeGvUJ0-gfQhYXkn466d_jABA8vhi3RHmBuSGfOF9MYVQFjhNKdLz-w/exec';
 
-
         lucide.createIcons();
-
 
         // Mobile menu toggle
         const btn = document.querySelector("button.mobile-menu-button");
         const menu = document.querySelector(".mobile-menu");
         btn.addEventListener("click", () => menu.classList.toggle("hidden"));
-
 
         const projectData = {
             0: { title: "Kickoff & Alinhamento", objective: "Fechar escopo, métricas e cronograma do projeto.", deliverables: "Documento de escopo, glossário de métricas, RACI final." },
@@ -261,7 +278,6 @@
             8: { title: "Enablement & Fase 2 de Mídia", objective: "Preparar a equipe para a execução e planejar os próximos passos relacionados à mídia.", deliverables: "Kit de execução (templates, checklists) e requisitos para atribuição de mídia." }
         };
 
-
         const raciData = {
             0: { activities: [ { activity: "Cronograma macro e RACI geral", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Definir pesos do índice de performance", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Fechar escopo e métricas", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" } ] },
             1: { activities: [ { activity: "Classificar lançamentos (New, Recoloring, etc.)", r: "Merchandising Team", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Coletar materiais (upper, lining etc.)", r: "Solutions", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Consolidar vendas, preços, atributos", r: "Henry", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Criar dicionário de dados e regras de KPI", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Obter COGS e taxas variáveis", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Desenhar modelo de dados (ERD)", r: "Henry", a: "Henry", c: "Solutions", i: "Merchandising Team" } ] },
@@ -274,7 +290,6 @@
             8: { activities: [ { activity: "Kit de execução (templates, checklists)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Requisitos para atribuição de mídia", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] }
         };
 
-
         const modal = document.getElementById('raciModal');
         const modalTitle = document.getElementById('modalTitle');
         const tableBody = document.getElementById('raciTableBody');
@@ -282,9 +297,7 @@
         const timelineContainer = document.getElementById('timelineContainer');
         const loader = document.getElementById('loader');
 
-
         let checksState = {};
-
 
         function renderTimeline() {
             Object.keys(projectData).forEach(phase => {
@@ -298,7 +311,7 @@
                     <div class="bg-white p-6 border border-gray-200 shadow-sm rounded-lg">
                         <h3 class="font-bold text-lg mb-3 larroude-pink flex items-center gap-2"><i data-lucide="award"></i>Entregáveis</h3>
                         <p class="text-gray-700">${phaseData.deliverables}</p>
-                        <div class="mt-6 space-y-4">
+                         <div class="mt-6 space-y-4">
                             <div>
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="text-sm font-semibold text-gray-700">Progresso de Execução</span>
@@ -322,9 +335,8 @@
                     </div>`;
                 timelineContainer.appendChild(timelineItem);
             });
-            lucide.createIcons();
+            lucide.createIcons(); 
         }
-
 
         async function initializeChecks() {
             loader.classList.remove('hidden');
@@ -347,42 +359,39 @@
             loader.classList.add('hidden');
         }
 
-
         function updateAllProgress() {
             let totalTasks = 0;
             let totalChecked = 0;
             let totalApproved = 0;
-
 
             Object.keys(raciData).forEach(phase => {
                 const phaseActivities = raciData[phase].activities;
                 const phaseState = checksState[phase] || { checked: [], approved: [] };
                 const checkedInPhase = (phaseState.checked || []).filter(Boolean).length;
                 const approvedInPhase = (phaseState.approved || []).filter(Boolean).length;
-               
+                
                 totalTasks += phaseActivities.length;
                 totalChecked += checkedInPhase;
                 totalApproved += approvedInPhase;
 
-
                 const checkedPercentage = phaseActivities.length > 0 ? (checkedInPhase / phaseActivities.length) * 100 : 0;
                 const approvedPercentage = phaseActivities.length > 0 ? (approvedInPhase / phaseActivities.length) * 100 : 0;
-               
+                
                 document.getElementById(`progress-bar-checked-${phase}`).style.width = `${checkedPercentage}%`;
                 document.getElementById(`progress-percent-checked-${phase}`).textContent = `${Math.round(checkedPercentage)}%`;
                 document.getElementById(`progress-bar-approved-${phase}`).style.width = `${approvedPercentage}%`;
                 document.getElementById(`progress-percent-approved-${phase}`).textContent = `${Math.round(approvedPercentage)}%`;
             });
-           
+            
             const totalCheckedPercentage = totalTasks > 0 ? (totalChecked / totalTasks) * 100 : 0;
             document.getElementById('total-progress-bar-checked').style.width = `${totalCheckedPercentage}%`;
             document.getElementById('total-progress-percent-checked').textContent = `${Math.round(totalCheckedPercentage)}%`;
-           
+            
             const totalApprovedPercentage = totalTasks > 0 ? (totalApproved / totalTasks) * 100 : 0;
             document.getElementById('total-progress-bar-approved').style.width = `${totalApprovedPercentage}%`;
             document.getElementById('total-progress-percent-approved').textContent = `${Math.round(totalApprovedPercentage)}%`;
         }
-       
+        
         timelineContainer.addEventListener('click', (event) => {
             const button = event.target.closest('.open-raci-btn');
             if(button) {
@@ -390,10 +399,8 @@
                 const data = raciData[phase];
                 const phaseState = checksState[phase] || { checked: [], approved: [] };
 
-
                 modalTitle.textContent = `Fase ${phase}: ${projectData[phase].title}`;
-                tableBody.innerHTML = '';
-
+                tableBody.innerHTML = ''; 
 
                 data.activities.forEach((act, index) => {
                     const isChecked = phaseState.checked && phaseState.checked[index];
@@ -415,12 +422,12 @@
                     `;
                     tableBody.appendChild(row);
                 });
-               
+                
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
             }
         });
-       
+        
         tableBody.addEventListener('change', async (event) => {
             if (event.target.type === 'checkbox') {
                 const checkbox = event.target;
@@ -429,9 +436,7 @@
                 const isChecked = checkbox.checked;
                 const type = checkbox.classList.contains('check-task') ? 'checked' : 'approved';
 
-
                 checksState[phase][type][index] = isChecked;
-
 
                 if (type === 'checked' && !isChecked) {
                     checksState[phase]['approved'][index] = false;
@@ -442,12 +447,11 @@
                 } else if (type === 'checked' && isChecked) {
                     checkbox.closest('tr').querySelector('.check-approve').disabled = false;
                 }
-               
+                
                 updateAllProgress();
                 await postUpdate(phase, index, type, isChecked);
             }
         });
-
 
         async function postUpdate(phase, index, type, value) {
              try {
@@ -466,12 +470,10 @@
             }
         }
 
-
         const closeModal = () => {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         };
-
 
         closeButton.addEventListener('click', closeModal);
         modal.addEventListener('click', (event) => {
@@ -479,7 +481,7 @@
                 closeModal();
             }
         });
-       
+        
         document.addEventListener('DOMContentLoaded', () => {
             renderTimeline();
             initializeChecks();
@@ -487,8 +489,4 @@
     </script>
 </body>
 </html>
-
-
-
-
 
