@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progresso | Hit or Hype</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+       
+        .font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+
+
+        .larroude-pink { color: #E9519F; }
+        .bg-larroude-pink { background-color: #E9519F; }
+
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 4rem;
+            border-left: 2px solid #e5e7eb;
+        }
+        .timeline-item:last-child {
+            border-left-color: transparent;
+            padding-bottom: 0;
+        }
+        .timeline-marker {
+            position: absolute;
+            top: 4px;
+            left: -13px; /* Adjust to center the larger marker */
+            height: 24px;
+            width: 24px;
+            background-color: #E9519F;
+            border-radius: 9999px;
+            border: 4px solid #f9fafb; /* Cor do body bg */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #E9519F;
+            transition: width 0.3s ease-in-out;
+        }
+
+
+        .section-title:hover::after {
+            width: 100%;
+        }
+
+
+        #raciModal { transition: opacity 0.3s ease; }
+        #loader { transition: opacity 0.3s ease; }
+
+
+    </style>
+</head>
+<body class="bg-gray-50">
+
+
+    <!-- Navigation Menu -->
+    <nav class="bg-black text-white sticky top-0 z-50 shadow-md">
+        <div class="mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Website Logo -->
+                <a href="index.html" class="flex items-center">
+                    <span class="font-anton text-2xl larroude-pink">HIT OR HYPE</span>
+                </a>
+                <!-- Primary Navbar items -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="index.html" class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300">Principal</a>
+                    <a href="progresso.html" class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300">Progresso</a>
+                    <a href="index.html#time" class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300">Time</a>
+                     <!-- Dropdown -->
+                    <div class="relative group">
+                        <button class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300 flex items-center">
+                            <span>Fases</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-black rounded-md shadow-lg py-1 hidden group-hover:block">
+                            <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
+                                <span>Fase 0</span>
+                                <i data-lucide="lock" class="w-4 h-4"></i>
+                            </a>
+                             <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
+                                <span>Fase 1</span>
+                                <i data-lucide="lock" class="w-4 h-4"></i>
+                            </a>
+                            <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
+                                <span>Fase 2</span>
+                                <i data-lucide="lock" class="w-4 h-4"></i>
+                            </a>
+                             <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
+                                <span>...</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- mobile menu -->
+        <div class="hidden mobile-menu">
+            <ul class="">
+                <li><a href="index.html" class="block text-sm px-4 py-4 hover:bg-pink-500 transition duration-300">Principal</a></li>
+                <li><a href="progresso.html" class="block text-sm px-4 py-4 hover:bg-pink-500 transition duration-300">Progresso</a></li>
+                <li><a href="index.html#time" class="block text-sm px-4 py-4 hover:bg-pink-500 transition duration-300">Time</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[60vh] flex items-center justify-center text-white bg-black">
+        <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('https://i.ibb.co/84zFHskJ/image.png');"></div>
+        <div class="relative z-10 text-center p-4">
+            <p class="font-semibold tracking-widest larroude-pink">HIT OR HYPE</p>
+            <h1 class="font-anton text-6xl md:text-8xl my-2">Progresso do Projeto</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">Um estudo estratégico para definir mix, cadência e objetivos de lançamentos.</p>
+        </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="py-24 px-4 md:px-8">
+        <div class="max-w-4xl mx-auto">
+           
+            <!-- Overall Progress Bar -->
+            <div class="mb-16 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h2 class="font-anton text-2xl mb-4 text-center">PROGRESSO GERAL DO PROJETO</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-semibold text-gray-700">Execução</span>
+                            <span id="total-progress-percent-checked" class="text-sm font-bold larroude-pink">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div id="total-progress-bar-checked" class="bg-larroude-pink h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-semibold text-gray-700">Aprovação</span>
+                            <span id="total-progress-percent-approved" class="text-sm font-bold text-green-500">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div id="total-progress-bar-approved" class="bg-green-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Timeline Container -->
+            <div id="timelineContainer" class="relative">
+                <!-- Fases serão renderizadas aqui pelo JavaScript -->
+            </div>
+
+
+        </div>
+    </main>
+   
+    <footer class="bg-black text-white text-center py-16 px-4">
+        <p class="font-anton text-5xl">OBRIGADO<span class="larroude-pink">.</span></p>
+    </footer>
+
+
+    <!-- Modal -->
+    <div id="raciModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b sticky top-0 bg-white flex justify-between items-center">
+                <h2 id="modalTitle" class="font-anton text-2xl">RACI & Checks</h2>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-black text-4xl">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b-2 border-black">
+                            <th class="p-2">Atividade</th>
+                            <th class="p-2">R</th>
+                            <th class="p-2">A</th>
+                            <th class="p-2">C</th>
+                            <th class="p-2">I</th>
+                            <th class="p-2 text-center">Feito?</th>
+                            <th class="p-2 text-center">Aprovado?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="raciTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 bg-white bg-opacity-80 flex items-center justify-center z-[60]">
+        <div class="text-center">
+            <p class="font-anton text-2xl larroude-pink animate-pulse">CARREGANDO DADOS DO PROJETO...</p>
+            <p class="text-gray-600 mt-2">Sincronizando com o Google Sheets.</p>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        // COLE AQUI O SEU URL DO GOOGLE APPS SCRIPT
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymNoOCPXrL_FVYeGvUJ0-gfQhYXkn466d_jABA8vhi3RHmBuSGfOF9MYVQFjhNKdLz-w/exec';
+
+
+        lucide.createIcons();
+
+
+        // Mobile menu toggle
+        const btn = document.querySelector("button.mobile-menu-button");
+        const menu = document.querySelector(".mobile-menu");
+        btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+
+
+        const projectData = {
+            0: { title: "Kickoff & Alinhamento", objective: "Fechar escopo, métricas e cronograma do projeto.", deliverables: "Documento de escopo, glossário de métricas, RACI final." },
+            1: { title: "Inventário de Dados", objective: "Consolidar fontes, padronizar campos e classificar lançamentos.", deliverables: "Matriz de fontes & gaps, dicionário de dados v1, ERD, tabela `launch_events`." },
+            2: { title: "ETL & Qualidade", objective: "Construir os pipelines de dados e garantir a qualidade e reconciliação das informações.", deliverables: "Queries/pipeline de ingestão, relatório de QA e reconciliação." },
+            3: { title: "Análise Descritiva e Comparativa", objective: "Avaliar performance histórica e comparar categorias de lançamento.", deliverables: "Caderno de KPIs, comparações estatísticas, análise estoque vs. vendas." },
+            4: { title: "Segmentação & Índice de Performance", objective: "Agrupar produtos por padrão e criar score de performance.", deliverables: "Mapa de clusters e (opcional) índice de performance 0-100." },
+            5: { title: "Capacidade, Cadência & Mix", objective: "Definir ritmo e volume de lançamentos, respeitando sazonalidade e capacidade.", deliverables: "Matriz de capacidade, framework de calendário (ritmo), mix & SKUs por período." },
+            6: { title: "Objetivos e KPIs por Tipo", objective: "Definir objetivos estratégicos e KPIs por tipo (Comercial vs. Posicionamento).", deliverables: "Matriz de objetivos e guia de KPIs + complexidade de campanha." },
+            7: { title: "Plano Final de Lançamentos", objective: "Consolidar análises e recomendações num plano anual acionável.", deliverables: "Plano Anual v1.0 (mix, ranges de SKUs, periodicidade, objetivos)." },
+            8: { title: "Enablement & Fase 2 de Mídia", objective: "Preparar a equipe para a execução e planejar os próximos passos relacionados à mídia.", deliverables: "Kit de execução (templates, checklists) e requisitos para atribuição de mídia." }
+        };
+
+
+        const raciData = {
+            0: { activities: [ { activity: "Cronograma macro e RACI geral", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Definir pesos do índice de performance", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Fechar escopo e métricas", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" } ] },
+            1: { activities: [ { activity: "Classificar lançamentos (New, Recoloring, etc.)", r: "Merchandising Team", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Coletar materiais (upper, lining etc.)", r: "Solutions", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Consolidar vendas, preços, atributos", r: "Henry", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Criar dicionário de dados e regras de KPI", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Obter COGS e taxas variáveis", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Desenhar modelo de dados (ERD)", r: "Henry", a: "Henry", c: "Solutions", i: "Merchandising Team" } ] },
+            2: { activities: [ { activity: "Pipeline/queries de ingestão", r: "Henry", a: "Henry", c: "Solutions", i: "Merchandising Team" }, { activity: "QA de dados e reconciliação", r: "Henry", a: "Henry + Édina", c: "Solutions", i: "Merchandising Team" } ] },
+            3: { activities: [ { activity: "Comparações estatísticas", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Estoque vs. vendas", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "KPIs por SKU e categoria", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
+            4: { activities: [ { activity: "Clusterização (fast/slow/low performers)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Cálculo do índice de performance", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
+            5: { activities: [ { activity: "Análise de sazonalidade e capacidade", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Framework de calendário (ritmo)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Mix e SKUs por período", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
+            6: { activities: [ { activity: "Definir KPIs e metas por tipo de lançamento", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Matriz Comercial vs. Posicionamento", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
+            7: { activities: [ { activity: "Consolidar plano anual (mix, SKUs, calendário)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Versão final e documentação executiva", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
+            8: { activities: [ { activity: "Kit de execução (templates, checklists)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Requisitos para atribuição de mídia", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] }
+        };
+
+
+        const modal = document.getElementById('raciModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const tableBody = document.getElementById('raciTableBody');
+        const closeButton = document.getElementById('closeModalBtn');
+        const timelineContainer = document.getElementById('timelineContainer');
+        const loader = document.getElementById('loader');
+
+
+        let checksState = {};
+
+
+        function renderTimeline() {
+            Object.keys(projectData).forEach(phase => {
+                const phaseData = projectData[phase];
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                timelineItem.innerHTML = `
+                    <div class="timeline-marker">${phase}</div>
+                    <h2 class="font-anton text-3xl mb-2">${phaseData.title}</h2>
+                    <p class="text-gray-500 mb-4"><strong>Objetivo:</strong> ${phaseData.objective}</p>
+                    <div class="bg-white p-6 border border-gray-200 shadow-sm rounded-lg">
+                        <h3 class="font-bold text-lg mb-3 larroude-pink flex items-center gap-2"><i data-lucide="award"></i>Entregáveis</h3>
+                        <p class="text-gray-700">${phaseData.deliverables}</p>
+                        <div class="mt-6 space-y-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-semibold text-gray-700">Progresso de Execução</span>
+                                    <span id="progress-percent-checked-${phase}" class="text-sm font-bold larroude-pink">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div id="progress-bar-checked-${phase}" class="bg-larroude-pink h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-sm font-semibold text-gray-700">Progresso de Aprovação</span>
+                                    <span id="progress-percent-approved-${phase}" class="text-sm font-bold text-green-500">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div id="progress-bar-approved-${phase}" class="bg-green-500 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="open-raci-btn bg-black text-white font-bold py-2 px-4 rounded hover:bg-gray-800 transition-colors duration-300 w-full mt-6" data-phase="${phase}">ABRIR RACI E CHECKS</button>
+                    </div>`;
+                timelineContainer.appendChild(timelineItem);
+            });
+            lucide.createIcons();
+        }
+
+
+        async function initializeChecks() {
+            loader.classList.remove('hidden');
+            if (SCRIPT_URL.includes('PASTE_YOUR_URL')) {
+                loader.innerHTML = `<div class="text-center"><p class="font-anton text-2xl text-red-500">CONFIGURAÇÃO NECESSÁRIA</p><p class="text-gray-600 mt-2 max-w-md mx-auto">Por favor, siga o guia <strong>setup_instructions.md</strong> e cole o URL do seu App Script na constante SCRIPT_URL neste arquivo.</p></div>`;
+                return;
+            }
+            try {
+                const response = await fetch(SCRIPT_URL);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                const data = await response.json();
+                if(data.error) throw new Error(data.error);
+                checksState = data;
+                updateAllProgress();
+            } catch (error) {
+                console.error("Erro ao carregar dados do Google Sheets:", error);
+                loader.innerHTML = `<div class="text-center"><p class="font-anton text-2xl text-red-500">ERRO DE CONEXÃO</p><p class="text-gray-600 mt-2 max-w-md mx-auto">Não foi possível carregar os dados. Verifique os seguintes pontos:<br>1) O URL no código HTML está correto?<br>2) Na implantação do App Script, a opção 'Quem pode acessar' está como 'Qualquer pessoa'?<br>3) Você criou uma 'Nova Versão' da implantação após a última alteração no script?</p></div>`;
+                return;
+            }
+            loader.classList.add('hidden');
+        }
+
+
+        function updateAllProgress() {
+            let totalTasks = 0;
+            let totalChecked = 0;
+            let totalApproved = 0;
+
+
+            Object.keys(raciData).forEach(phase => {
+                const phaseActivities = raciData[phase].activities;
+                const phaseState = checksState[phase] || { checked: [], approved: [] };
+                const checkedInPhase = (phaseState.checked || []).filter(Boolean).length;
+                const approvedInPhase = (phaseState.approved || []).filter(Boolean).length;
+               
+                totalTasks += phaseActivities.length;
+                totalChecked += checkedInPhase;
+                totalApproved += approvedInPhase;
+
+
+                const checkedPercentage = phaseActivities.length > 0 ? (checkedInPhase / phaseActivities.length) * 100 : 0;
+                const approvedPercentage = phaseActivities.length > 0 ? (approvedInPhase / phaseActivities.length) * 100 : 0;
+               
+                document.getElementById(`progress-bar-checked-${phase}`).style.width = `${checkedPercentage}%`;
+                document.getElementById(`progress-percent-checked-${phase}`).textContent = `${Math.round(checkedPercentage)}%`;
+                document.getElementById(`progress-bar-approved-${phase}`).style.width = `${approvedPercentage}%`;
+                document.getElementById(`progress-percent-approved-${phase}`).textContent = `${Math.round(approvedPercentage)}%`;
+            });
+           
+            const totalCheckedPercentage = totalTasks > 0 ? (totalChecked / totalTasks) * 100 : 0;
+            document.getElementById('total-progress-bar-checked').style.width = `${totalCheckedPercentage}%`;
+            document.getElementById('total-progress-percent-checked').textContent = `${Math.round(totalCheckedPercentage)}%`;
+           
+            const totalApprovedPercentage = totalTasks > 0 ? (totalApproved / totalTasks) * 100 : 0;
+            document.getElementById('total-progress-bar-approved').style.width = `${totalApprovedPercentage}%`;
+            document.getElementById('total-progress-percent-approved').textContent = `${Math.round(totalApprovedPercentage)}%`;
+        }
+       
+        timelineContainer.addEventListener('click', (event) => {
+            const button = event.target.closest('.open-raci-btn');
+            if(button) {
+                const phase = button.dataset.phase;
+                const data = raciData[phase];
+                const phaseState = checksState[phase] || { checked: [], approved: [] };
+
+
+                modalTitle.textContent = `Fase ${phase}: ${projectData[phase].title}`;
+                tableBody.innerHTML = '';
+
+
+                data.activities.forEach((act, index) => {
+                    const isChecked = phaseState.checked && phaseState.checked[index];
+                    const isApproved = phaseState.approved && phaseState.approved[index];
+                    const row = document.createElement('tr');
+                    row.className = 'border-b border-gray-200';
+                    row.innerHTML = `
+                        <td class="p-2 font-medium">${act.activity}</td>
+                        <td class="p-2">${act.r}</td>
+                        <td class="p-2">${act.a}</td>
+                        <td class="p-2">${act.c}</td>
+                        <td class="p-2">${act.i}</td>
+                        <td class="p-2 text-center">
+                            <input type="checkbox" class="h-5 w-5 rounded-sm check-task" style="accent-color: #E9519F;" data-phase="${phase}" data-index="${index}" ${isChecked ? 'checked' : ''}>
+                        </td>
+                        <td class="p-2 text-center">
+                            <input type="checkbox" class="h-5 w-5 rounded-sm check-approve" style="accent-color: #22c55e;" data-phase="${phase}" data-index="${index}" ${isApproved ? 'checked' : ''} ${!isChecked ? 'disabled' : ''}>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+               
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        });
+       
+        tableBody.addEventListener('change', async (event) => {
+            if (event.target.type === 'checkbox') {
+                const checkbox = event.target;
+                const phase = checkbox.dataset.phase;
+                const index = checkbox.dataset.index;
+                const isChecked = checkbox.checked;
+                const type = checkbox.classList.contains('check-task') ? 'checked' : 'approved';
+
+
+                checksState[phase][type][index] = isChecked;
+
+
+                if (type === 'checked' && !isChecked) {
+                    checksState[phase]['approved'][index] = false;
+                    const approveCheckbox = checkbox.closest('tr').querySelector('.check-approve');
+                    approveCheckbox.checked = false;
+                    approveCheckbox.disabled = true;
+                    await postUpdate(phase, index, 'approved', false);
+                } else if (type === 'checked' && isChecked) {
+                    checkbox.closest('tr').querySelector('.check-approve').disabled = false;
+                }
+               
+                updateAllProgress();
+                await postUpdate(phase, index, type, isChecked);
+            }
+        });
+
+
+        async function postUpdate(phase, index, type, value) {
+             try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ phase, index, type, value }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                });
+                if (!response.ok) throw new Error (`Server responded with status: ${response.status}`);
+                const result = await response.json();
+                if (!result.success) {
+                    console.error('Falha ao salvar no Google Sheets:', result.message || result.error);
+                }
+            } catch (error) {
+                console.error('Erro de rede ao salvar no Google Sheets:', error);
+            }
+        }
+
+
+        const closeModal = () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+
+        closeButton.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            if (event.target === event.currentTarget) {
+                closeModal();
+            }
+        });
+       
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTimeline();
+            initializeChecks();
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
