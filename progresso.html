@@ -74,7 +74,9 @@
 
         #raciModal { transition: opacity 0.3s ease; }
         #loader { transition: opacity 0.3s ease; }
-
+        .dropdown-menu {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -94,24 +96,17 @@
                     <a href="index.html#time" class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300">Time</a>
                      <!-- Dropdown -->
                     <div class="relative group">
-                        <button class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300 flex items-center">
+                        <button class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300 flex items-center h-20">
                             <span>Fases</span>
                             <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
                         </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-black rounded-md shadow-lg py-1 hidden group-hover:block">
+                        <div class="absolute right-0 top-full w-48 bg-black rounded-b-md shadow-lg py-1 hidden group-hover:block dropdown-menu">
                             <a href="fase_0.html" class="px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 flex items-center justify-between">
                                 <span>Fase 0</span>
                             </a>
                              <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
                                 <span>Fase 1</span>
                                 <i data-lucide="lock" class="w-4 h-4"></i>
-                            </a>
-                            <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
-                                <span>Fase 2</span>
-                                <i data-lucide="lock" class="w-4 h-4"></i>
-                            </a>
-                             <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
-                                <span>...</span>
                             </a>
                         </div>
                     </div>
@@ -226,7 +221,7 @@
                 <h2 id="modalTitle" class="font-anton text-2xl">RACI & Checks</h2>
                 <button id="closeModalBtn" class="text-gray-500 hover:text-black text-4xl">&times;</button>
             </div>
-            <div class="p-6 overflow-y-auto">
+            <div id="modalContent" class="p-6 overflow-y-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b-2 border-black">
@@ -241,6 +236,11 @@
                     </thead>
                     <tbody id="raciTableBody"></tbody>
                 </table>
+                 <div class="mt-6">
+                    <button id="addTaskBtn" class="bg-black text-white font-bold py-2 px-4 rounded hover:bg-gray-800 transition-colors duration-300 w-full flex items-center justify-center gap-2">
+                        <i data-lucide="plus-circle"></i> Adicionar Nova Atividade
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -277,26 +277,16 @@
             8: { title: "Enablement & Fase 2 de Mídia", objective: "Preparar a equipe para a execução e planejar os próximos passos relacionados à mídia.", deliverables: "Kit de execução (templates, checklists) e requisitos para atribuição de mídia." }
         };
 
-        const raciData = {
-            0: { activities: [ { activity: "Cronograma macro e RACI geral", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Definir pesos do índice de performance", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Fechar escopo e métricas", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Selecionar KPIs necessários", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
-            1: { activities: [ { activity: "Classificar lançamentos (New, Recoloring, etc.)", r: "Merchandising Team", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Coletar materiais (upper, lining etc.)", r: "Solutions", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Consolidar vendas, preços, atributos", r: "Henry", a: "Henry", c: "Édina", i: "Merchandising Team" }, { activity: "Criar dicionário de dados e regras de KPI", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Obter COGS e taxas variáveis", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Desenhar modelo de dados (ERD)", r: "Henry", a: "Henry", c: "Solutions", i: "Merchandising Team" } ] },
-            2: { activities: [ { activity: "Pipeline/queries de ingestão", r: "Henry", a: "Henry", c: "Solutions", i: "Merchandising Team" }, { activity: "QA de dados e reconciliação", r: "Henry", a: "Henry + Édina", c: "Solutions", i: "Merchandising Team" } ] },
-            3: { activities: [ { activity: "Comparações estatísticas", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Estoque vs. vendas", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "KPIs por SKU e categoria", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
-            4: { activities: [ { activity: "Clusterização (fast/slow/low performers)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Cálculo do índice de performance", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
-            5: { activities: [ { activity: "Análise de sazonalidade e capacidade", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Framework de calendário (ritmo)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Mix e SKUs por período", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
-            6: { activities: [ { activity: "Definir KPIs e metas por tipo de lançamento", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Matriz Comercial vs. Posicionamento", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
-            7: { activities: [ { activity: "Consolidar plano anual (mix, SKUs, calendário)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Versão final e documentação executiva", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] },
-            8: { activities: [ { activity: "Kit de execução (templates, checklists)", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" }, { activity: "Requisitos para atribuição de mídia", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] }
-        };
-
         const modal = document.getElementById('raciModal');
         const modalTitle = document.getElementById('modalTitle');
         const tableBody = document.getElementById('raciTableBody');
         const closeButton = document.getElementById('closeModalBtn');
         const timelineContainer = document.getElementById('timelineContainer');
         const loader = document.getElementById('loader');
+        const addTaskBtn = document.getElementById('addTaskBtn');
 
-        let checksState = {};
+        let projectState = {};
+        let currentPhase = null;
 
         function renderTimeline() {
             Object.keys(projectData).forEach(phase => {
@@ -337,7 +327,7 @@
             lucide.createIcons(); 
         }
 
-        async function initializeChecks() {
+        async function initializeProject() {
             loader.classList.remove('hidden');
             if (SCRIPT_URL.includes('PASTE_YOUR_URL')) {
                 loader.innerHTML = `<div class="text-center"><p class="font-anton text-2xl text-red-500">CONFIGURAÇÃO NECESSÁRIA</p><p class="text-gray-600 mt-2 max-w-md mx-auto">Por favor, siga o guia <strong>setup_instructions.md</strong> e cole o URL do seu App Script na constante SCRIPT_URL neste arquivo.</p></div>`;
@@ -348,7 +338,7 @@
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 const data = await response.json();
                 if(data.error) throw new Error(data.error);
-                checksState = data;
+                projectState = data;
                 updateAllProgress();
             } catch (error) {
                 console.error("Erro ao carregar dados do Google Sheets:", error);
@@ -363,18 +353,18 @@
             let totalChecked = 0;
             let totalApproved = 0;
 
-            Object.keys(raciData).forEach(phase => {
-                const phaseActivities = raciData[phase].activities;
-                const phaseState = checksState[phase] || { checked: [], approved: [] };
-                const checkedInPhase = (phaseState.checked || []).filter(Boolean).length;
-                const approvedInPhase = (phaseState.approved || []).filter(Boolean).length;
+            Object.keys(projectState).forEach(phase => {
+                const phaseActivities = projectState[phase].activities;
+                const phaseLength = phaseActivities.length;
+                const checkedInPhase = phaseActivities.filter(t => t.checked).length;
+                const approvedInPhase = phaseActivities.filter(t => t.approved).length;
                 
-                totalTasks += phaseActivities.length;
+                totalTasks += phaseLength;
                 totalChecked += checkedInPhase;
                 totalApproved += approvedInPhase;
 
-                const checkedPercentage = phaseActivities.length > 0 ? (checkedInPhase / phaseActivities.length) * 100 : 0;
-                const approvedPercentage = phaseActivities.length > 0 ? (approvedInPhase / phaseActivities.length) * 100 : 0;
+                const checkedPercentage = phaseLength > 0 ? (checkedInPhase / phaseLength) * 100 : 0;
+                const approvedPercentage = phaseLength > 0 ? (approvedInPhase / phaseLength) * 100 : 0;
                 
                 document.getElementById(`progress-bar-checked-${phase}`).style.width = `${checkedPercentage}%`;
                 document.getElementById(`progress-percent-checked-${phase}`).textContent = `${Math.round(checkedPercentage)}%`;
@@ -391,40 +381,43 @@
             document.getElementById('total-progress-percent-approved').textContent = `${Math.round(totalApprovedPercentage)}%`;
         }
         
+        function openRaciModal(phase) {
+            currentPhase = phase;
+            const data = projectState[phase];
+            modalTitle.textContent = `Fase ${phase}: ${projectData[phase].title}`;
+            tableBody.innerHTML = ''; 
+
+            data.activities.forEach((act, index) => {
+                const row = createRaciRow(act, phase, index);
+                tableBody.appendChild(row);
+            });
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function createRaciRow(act, phase, index) {
+            const row = document.createElement('tr');
+            row.className = 'border-b border-gray-200';
+            row.innerHTML = `
+                <td class="p-2 font-medium">${act.activity}</td>
+                <td class="p-2">${act.r}</td>
+                <td class="p-2">${act.a}</td>
+                <td class="p-2">${act.c}</td>
+                <td class="p-2">${act.i}</td>
+                <td class="p-2 text-center">
+                    <input type="checkbox" class="h-5 w-5 rounded-sm check-task" style="accent-color: #E9519F;" data-phase="${phase}" data-index="${index}" ${act.checked ? 'checked' : ''}>
+                </td>
+                <td class="p-2 text-center">
+                    <input type="checkbox" class="h-5 w-5 rounded-sm check-approve" style="accent-color: #22c55e;" data-phase="${phase}" data-index="${index}" ${act.approved ? 'checked' : ''} ${!act.checked ? 'disabled' : ''}>
+                </td>
+            `;
+            return row;
+        }
+
         timelineContainer.addEventListener('click', (event) => {
             const button = event.target.closest('.open-raci-btn');
-            if(button) {
-                const phase = button.dataset.phase;
-                const data = raciData[phase];
-                const phaseState = checksState[phase] || { checked: [], approved: [] };
-
-                modalTitle.textContent = `Fase ${phase}: ${projectData[phase].title}`;
-                tableBody.innerHTML = ''; 
-
-                data.activities.forEach((act, index) => {
-                    const isChecked = phaseState.checked && phaseState.checked[index];
-                    const isApproved = phaseState.approved && phaseState.approved[index];
-                    const row = document.createElement('tr');
-                    row.className = 'border-b border-gray-200';
-                    row.innerHTML = `
-                        <td class="p-2 font-medium">${act.activity}</td>
-                        <td class="p-2">${act.r}</td>
-                        <td class="p-2">${act.a}</td>
-                        <td class="p-2">${act.c}</td>
-                        <td class="p-2">${act.i}</td>
-                        <td class="p-2 text-center">
-                            <input type="checkbox" class="h-5 w-5 rounded-sm check-task" style="accent-color: #E9519F;" data-phase="${phase}" data-index="${index}" ${isChecked ? 'checked' : ''}>
-                        </td>
-                        <td class="p-2 text-center">
-                            <input type="checkbox" class="h-5 w-5 rounded-sm check-approve" style="accent-color: #22c55e;" data-phase="${phase}" data-index="${index}" ${isApproved ? 'checked' : ''} ${!isChecked ? 'disabled' : ''}>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-                
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
+            if(button) openRaciModal(button.dataset.phase);
         });
         
         tableBody.addEventListener('change', async (event) => {
@@ -435,10 +428,10 @@
                 const isChecked = checkbox.checked;
                 const type = checkbox.classList.contains('check-task') ? 'checked' : 'approved';
 
-                checksState[phase][type][index] = isChecked;
+                projectState[phase].activities[index][type] = isChecked;
 
                 if (type === 'checked' && !isChecked) {
-                    checksState[phase]['approved'][index] = false;
+                    projectState[phase].activities[index]['approved'] = false;
                     const approveCheckbox = checkbox.closest('tr').querySelector('.check-approve');
                     approveCheckbox.checked = false;
                     approveCheckbox.disabled = true;
@@ -452,11 +445,73 @@
             }
         });
 
+        addTaskBtn.addEventListener('click', () => {
+            const newRow = document.createElement('tr');
+            newRow.id = 'new-task-row';
+            newRow.innerHTML = `
+                <td class="p-2"><input type="text" id="new-activity" class="w-full border p-1 rounded" placeholder="Nome da Atividade"></td>
+                <td class="p-2"><input type="text" id="new-r" class="w-full border p-1 rounded" placeholder="R"></td>
+                <td class="p-2"><input type="text" id="new-a" class="w-full border p-1 rounded" placeholder="A"></td>
+                <td class="p-2"><input type="text" id="new-c" class="w-full border p-1 rounded" placeholder="C"></td>
+                <td class="p-2"><input type="text" id="new-i" class="w-full border p-1 rounded" placeholder="I"></td>
+                <td colspan="2" class="p-2 text-center">
+                    <button id="saveNewTaskBtn" class="bg-green-500 text-white font-bold py-1 px-3 rounded text-sm">Salvar</button>
+                </td>
+            `;
+            tableBody.appendChild(newRow);
+            addTaskBtn.style.display = 'none'; // Hide add button
+        });
+
+        tableBody.addEventListener('click', async (event) => {
+            if (event.target.id === 'saveNewTaskBtn') {
+                const button = event.target;
+                button.disabled = true;
+                button.textContent = 'Salvando...';
+
+                const newTask = {
+                    activity: document.getElementById('new-activity').value,
+                    r: document.getElementById('new-r').value,
+                    a: document.getElementById('new-a').value,
+                    c: document.getElementById('new-c').value,
+                    i: document.getElementById('new-i').value,
+                };
+
+                if (!newTask.activity) {
+                    alert('O nome da atividade é obrigatório.');
+                    button.disabled = false;
+                    button.textContent = 'Salvar';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'addTask', phase: currentPhase, task: newTask }),
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    });
+                    if (!response.ok) throw new Error (`Server responded with status: ${response.status}`);
+                    const result = await response.json();
+                    if (!result.success) {
+                        throw new Error(result.message || result.error);
+                    }
+                    // Refresh data from server to ensure sync
+                    await initializeProject();
+                    openRaciModal(currentPhase); // Re-open modal with fresh data
+                } catch (error) {
+                     console.error('Falha ao adicionar nova tarefa:', error);
+                     alert('Não foi possível salvar a nova tarefa. Verifique o console para mais detalhes.');
+                } finally {
+                    addTaskBtn.style.display = 'flex';
+                }
+            }
+        });
+
+
         async function postUpdate(phase, index, type, value) {
              try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ phase, index, type, value }),
+                    body: JSON.stringify({ action: 'updateCheck', phase, index, type, value }),
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 });
                 if (!response.ok) throw new Error (`Server responded with status: ${response.status}`);
@@ -483,7 +538,7 @@
         
         document.addEventListener('DOMContentLoaded', () => {
             renderTimeline();
-            initializeChecks();
+            initializeProject();
         });
     </script>
 </body>
