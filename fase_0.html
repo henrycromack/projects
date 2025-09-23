@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 0 | Hit or Hype</title>
+    <link rel="icon" type="image/png" href="https://i.ibb.co/spsMDYsJ/H-1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafb;
+            color: #1a1a1a;
+        }
+        .font-anton { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .larroude-pink { color: #E9519F; }
+        .bg-larroude-pink { background-color: #E9519F; }
+        .section-title {
+            position: relative; display: inline-block; padding-bottom: 8px;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+            background-color: #E9519F; transition: width 0.3s ease-in-out;
+        }
+        .section-title:hover::after { width: 100%; }
+        #loader { transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation Menu -->
+    <nav class="bg-black text-white sticky top-0 z-50 shadow-md">
+        <div class="mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center">
+                    <span class="font-anton text-2xl larroude-pink">HIT OR HYPE</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="index.html" class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300">Principal</a>
+                    <a href="progresso.html" class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300">Progresso</a>
+                    <a href="index.html#time" class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300">Time</a>
+                    <div class="relative group">
+                        <button class="px-3 py-2 font-semibold hover:text-pink-500 transition duration-300 flex items-center">
+                            <span>Fases</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-black rounded-md shadow-lg py-1 hidden group-hover:block">
+                            <a href="fase_0.html" class="px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 flex items-center justify-between">
+                                <span>Fase 0</span>
+                            </a>
+                             <a href="#" class="px-4 py-2 text-sm text-gray-300 flex items-center justify-between opacity-50 cursor-not-allowed">
+                                <span>Fase 1</span>
+                                <i data-lucide="lock" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="outline-none mobile-menu-button">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="hidden mobile-menu">
+            <ul>
+                <li><a href="index.html" class="block text-sm px-4 py-4 hover:bg-pink-500 transition duration-300">Principal</a></li>
+                <li><a href="progresso.html" class="block text-sm px-4 py-4 hover:bg-pink-500 transition duration-300">Progresso</a></li>
+                <li><a href="index.html#time" class="block text-sm px-4 py-4 hover:bg-pink-500 transition duration-300">Time</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[70vh] flex items-center justify-center text-white bg-black">
+        <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('https://i.ibb.co/BVtrbBD4/BVH-Larroude-Stills-1762.jpg');"></div>
+        <div class="relative z-10 text-center p-4">
+            <p class="font-semibold tracking-widest larroude-pink">FASE 0</p>
+            <h1 class="font-anton text-5xl md:text-7xl my-2">Kickoff & Alinhamento de Dados</h1>
+        </div>
+    </header>
+
+    <main class="py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+
+            <!-- Objetivo Geral -->
+            <section class="mb-16">
+                <h2 class="font-anton text-3xl mb-4 section-title">OBJETIVO GERAL</h2>
+                <p class="text-lg text-gray-700">Estabelecer uma base sólida para todo o projeto Hit or Hype, definindo o escopo, as métricas principais, o cronograma macro e o mapeamento completo dos dados brutos necessários. Esta fase garante que, quando avançarmos para as análises, todas as informações estejam padronizadas e as fontes de dados confirmadas.</p>
+            </section>
+
+            <!-- Objetivos Específicos -->
+            <section class="mb-16">
+                <h2 class="font-anton text-3xl mb-8 section-title text-center">OBJETIVOS ESPECÍFICOS</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-pink-500">
+                        <h3 class="font-bold text-xl mb-2">Escopo e Cronograma</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Finalizar escopo macro, metas e entregáveis.</li>
+                            <li>Definir cronograma de alto nível e marcos.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-pink-500">
+                        <h3 class="font-bold text-xl mb-2">Governança e Papéis (RACI)</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Mapear todos os responsáveis e aprovadores.</li>
+                            <li>Aprovar o RACI geral do projeto.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-pink-500">
+                        <h3 class="font-bold text-xl mb-2">Índice de Performance</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Listar e validar métricas candidatas.</li>
+                            <li>Identificar dados brutos para cada métrica.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-pink-500">
+                        <h3 class="font-bold text-xl mb-2">Dicionário de Dados</h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Catalogar e descrever todos os campos.</li>
+                            <li>Garantir viabilidade técnica da coleta.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Entregáveis -->
+            <section class="mb-16">
+                <h2 class="font-anton text-3xl mb-8 section-title text-center">ENTREGÁVEIS</h2>
+                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center aspect-square">
+                        <i data-lucide="file-check-2" class="w-10 h-10 larroude-pink mb-2"></i>
+                        <span class="font-semibold text-sm">Escopo Aprovado</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center aspect-square">
+                        <i data-lucide="calendar-days" class="w-10 h-10 larroude-pink mb-2"></i>
+                        <span class="font-semibold text-sm">Cronograma Macro</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center aspect-square">
+                        <i data-lucide="users-2" class="w-10 h-10 larroude-pink mb-2"></i>
+                        <span class="font-semibold text-sm">RACI Validado</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center aspect-square">
+                        <i data-lucide="book-text" class="w-10 h-10 larroude-pink mb-2"></i>
+                        <span class="font-semibold text-sm">Dicionário de Dados</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center aspect-square col-span-2 md:col-span-1 lg:col-span-1">
+                        <i data-lucide="list-checks" class="w-10 h-10 larroude-pink mb-2"></i>
+                        <span class="font-semibold text-sm">Lista de Métricas</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RACI da Fase -->
+            <section>
+                 <h2 class="font-anton text-3xl mb-8 section-title text-center">RACI DA FASE 0</h2>
+                 
+                 <!-- Progress Bars for Phase 0 -->
+                 <div class="mb-8 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="font-bold text-lg mb-4 text-center">Progresso da Fase</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm font-semibold text-gray-700">Execução</span>
+                                <span id="progress-percent-checked-0" class="text-sm font-bold larroude-pink">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div id="progress-bar-checked-0" class="bg-larroude-pink h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-sm font-semibold text-gray-700">Aprovação</span>
+                                <span id="progress-percent-approved-0" class="text-sm font-bold text-green-500">0%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div id="progress-bar-approved-0" class="bg-green-500 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 
+                 <div class="overflow-x-auto bg-white p-4 rounded-lg shadow-md">
+                     <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b-2 border-black">
+                                <th class="p-3">Atividade</th>
+                                <th class="p-3">R</th>
+                                <th class="p-3">A</th>
+                                <th class="p-3">C</th>
+                                <th class="p-3">I</th>
+                                <th class="p-3 text-center">Feito?</th>
+                                <th class="p-3 text-center">Aprovado?</th>
+                            </tr>
+                        </thead>
+                        <tbody id="raciTableBody">
+                            <!-- Rows will be generated by JS -->
+                        </tbody>
+                    </table>
+                 </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Loader -->
+    <div id="loader" class="fixed inset-0 bg-white bg-opacity-80 flex items-center justify-center z-[60]">
+        <div class="text-center">
+            <p class="font-anton text-2xl larroude-pink animate-pulse">CARREGANDO DADOS DA FASE 0...</p>
+            <p class="text-gray-600 mt-2">Sincronizando com o Google Sheets.</p>
+        </div>
+    </div>
+
+    <footer class="bg-black text-white text-center py-16 px-4">
+    </footer>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzVV6teeeuF_zTABQ--hZ28BMVAWXGnKVVmc8nSInsuiIoaDB6TpUDzBT7VGksA-Wm9lg/exec';
+        const CURRENT_PHASE = 0;
+
+        const raciData = {
+            0: { activities: [ { activity: "Cronograma macro e RACI geral", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Definir pesos do índice de performance", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Fechar escopo e métricas", r: "Henry", a: "Édina", c: "Édina", i: "Merchandising Team" }, { activity: "Selecionar KPIs necessários", r: "Henry", a: "Édina", c: "Solutions", i: "Merchandising Team" } ] }
+        };
+
+        const loader = document.getElementById('loader');
+        const tableBody = document.getElementById('raciTableBody');
+        let checksState = {};
+
+        function renderRaciTable() {
+            const phase = CURRENT_PHASE;
+            const data = raciData[phase];
+            const phaseState = checksState[phase] || { checked: [], approved: [] };
+            
+            tableBody.innerHTML = ''; 
+
+            data.activities.forEach((act, index) => {
+                const isChecked = phaseState.checked && phaseState.checked[index];
+                const isApproved = phaseState.approved && phaseState.approved[index];
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-200 last:border-b-0';
+                row.innerHTML = `
+                    <td class="p-3 font-medium">${act.activity}</td>
+                    <td class="p-3">${act.r}</td>
+                    <td class="p-3">${act.a}</td>
+                    <td class="p-3">${act.c}</td>
+                    <td class="p-3">${act.i}</td>
+                    <td class="p-3 text-center">
+                        <input type="checkbox" class="h-5 w-5 rounded-sm check-task" style="accent-color: #E9519F;" data-phase="${phase}" data-index="${index}" ${isChecked ? 'checked' : ''}>
+                    </td>
+                    <td class="p-3 text-center">
+                        <input type="checkbox" class="h-5 w-5 rounded-sm check-approve" style="accent-color: #22c55e;" data-phase="${phase}" data-index="${index}" ${isApproved ? 'checked' : ''} ${!isChecked ? 'disabled' : ''}>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function updatePhaseProgress() {
+            const phase = CURRENT_PHASE;
+            const phaseActivities = raciData[phase].activities;
+            const phaseState = checksState[phase] || { checked: [], approved: [] };
+            const checkedInPhase = (phaseState.checked || []).filter(Boolean).length;
+            const approvedInPhase = (phaseState.approved || []).filter(Boolean).length;
+
+            const checkedPercentage = phaseActivities.length > 0 ? (checkedInPhase / phaseActivities.length) * 100 : 0;
+            const approvedPercentage = phaseActivities.length > 0 ? (approvedInPhase / phaseActivities.length) * 100 : 0;
+            
+            document.getElementById(`progress-bar-checked-${phase}`).style.width = `${checkedPercentage}%`;
+            document.getElementById(`progress-percent-checked-${phase}`).textContent = `${Math.round(checkedPercentage)}%`;
+            document.getElementById(`progress-bar-approved-${phase}`).style.width = `${approvedPercentage}%`;
+            document.getElementById(`progress-percent-approved-${phase}`).textContent = `${Math.round(approvedPercentage)}%`;
+        }
+
+        async function initializeChecks() {
+            loader.classList.remove('hidden');
+            if (SCRIPT_URL.includes('PASTE_YOUR_URL')) {
+                 loader.innerHTML = `<div class="text-center"><p class="font-anton text-2xl text-red-500">CONFIGURAÇÃO NECESSÁRIA</p><p class="text-gray-600 mt-2 max-w-md mx-auto">Por favor, cole o URL do seu App Script na constante SCRIPT_URL neste arquivo.</p></div>`;
+                return;
+            }
+            try {
+                const response = await fetch(SCRIPT_URL);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                const data = await response.json();
+                if(data.error) throw new Error(data.error);
+                checksState = data;
+                renderRaciTable();
+                updatePhaseProgress();
+            } catch (error) {
+                console.error("Erro ao carregar dados:", error);
+                 loader.innerHTML = `<div class="text-center"><p class="font-anton text-2xl text-red-500">ERRO DE CONEXÃO</p><p class="text-gray-600 mt-2 max-w-md mx-auto">Não foi possível carregar os dados. Verifique o URL do App Script e as permissões da planilha.</p></div>`;
+                return;
+            }
+            loader.classList.add('hidden');
+        }
+
+        tableBody.addEventListener('change', async (event) => {
+            if (event.target.type === 'checkbox') {
+                const checkbox = event.target;
+                const phase = checkbox.dataset.phase;
+                const index = checkbox.dataset.index;
+                const isChecked = checkbox.checked;
+                const type = checkbox.classList.contains('check-task') ? 'checked' : 'approved';
+
+                checksState[phase][type][index] = isChecked;
+
+                if (type === 'checked' && !isChecked) {
+                    checksState[phase]['approved'][index] = false;
+                    const approveCheckbox = checkbox.closest('tr').querySelector('.check-approve');
+                    approveCheckbox.checked = false;
+                    approveCheckbox.disabled = true;
+                    await postUpdate(phase, index, 'approved', false);
+                } else if (type === 'checked' && isChecked) {
+                    checkbox.closest('tr').querySelector('.check-approve').disabled = false;
+                }
+                
+                updatePhaseProgress();
+                await postUpdate(phase, index, type, isChecked);
+            }
+        });
+
+        async function postUpdate(phase, index, type, value) {
+             try {
+                const response = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ phase, index, type, value }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                });
+                if (!response.ok) throw new Error (`Server responded with status: ${response.status}`);
+                const result = await response.json();
+                if (!result.success) {
+                    console.error('Falha ao salvar no Google Sheets:', result.message || result.error);
+                }
+            } catch (error) {
+                console.error('Erro de rede ao salvar no Google Sheets:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const btn = document.querySelector("button.mobile-menu-button");
+            const menu = document.querySelector(".mobile-menu");
+            btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+            initializeChecks();
+        });
+    </script>
+</body>
+</html>
+
