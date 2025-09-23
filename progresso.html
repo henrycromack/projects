@@ -225,13 +225,14 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b-2 border-black">
-                            <th class="p-2">Atividade</th>
+                            <th class="p-2 w-2/5">Atividade</th>
                             <th class="p-2">R</th>
                             <th class="p-2">A</th>
                             <th class="p-2">C</th>
                             <th class="p-2">I</th>
                             <th class="p-2 text-center">Feito?</th>
                             <th class="p-2 text-center">Aprovado?</th>
+                            <th class="p-2 text-center"></th>
                         </tr>
                     </thead>
                     <tbody id="raciTableBody"></tbody>
@@ -354,6 +355,7 @@
             let totalApproved = 0;
 
             Object.keys(projectState).forEach(phase => {
+                if (!projectState[phase] || !projectState[phase].activities) return;
                 const phaseActivities = projectState[phase].activities;
                 const phaseLength = phaseActivities.length;
                 const checkedInPhase = phaseActivities.filter(t => t.checked).length;
@@ -411,7 +413,13 @@
                 <td class="p-2 text-center">
                     <input type="checkbox" class="h-5 w-5 rounded-sm check-approve" style="accent-color: #22c55e;" data-phase="${phase}" data-index="${index}" ${act.approved ? 'checked' : ''} ${!act.checked ? 'disabled' : ''}>
                 </td>
+                <td class="p-2 text-center">
+                    <button class="delete-task-btn text-red-500 hover:text-red-700" data-phase="${phase}" data-index="${index}"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                </td>
             `;
+            lucide.createIcons({
+                nodes: [row.querySelector('.delete-task-btn')]
+            });
             return row;
         }
 
@@ -435,13 +443,13 @@
                     const approveCheckbox = checkbox.closest('tr').querySelector('.check-approve');
                     approveCheckbox.checked = false;
                     approveCheckbox.disabled = true;
-                    await postUpdate(phase, index, 'approved', false);
+                    await postUpdate({ action: 'updateCheck', phase, index, type: 'approved', value: false });
                 } else if (type === 'checked' && isChecked) {
                     checkbox.closest('tr').querySelector('.check-approve').disabled = false;
                 }
                 
                 updateAllProgress();
-                await postUpdate(phase, index, type, isChecked);
+                await postUpdate({ action: 'updateCheck', phase, index, type, value: isChecked });
             }
         });
 
@@ -454,19 +462,21 @@
                 <td class="p-2"><input type="text" id="new-a" class="w-full border p-1 rounded" placeholder="A"></td>
                 <td class="p-2"><input type="text" id="new-c" class="w-full border p-1 rounded" placeholder="C"></td>
                 <td class="p-2"><input type="text" id="new-i" class="w-full border p-1 rounded" placeholder="I"></td>
-                <td colspan="2" class="p-2 text-center">
+                <td colspan="3" class="p-2 text-center">
                     <button id="saveNewTaskBtn" class="bg-green-500 text-white font-bold py-1 px-3 rounded text-sm">Salvar</button>
                 </td>
             `;
             tableBody.appendChild(newRow);
-            addTaskBtn.style.display = 'none'; // Hide add button
+            addTaskBtn.style.display = 'none';
         });
 
         tableBody.addEventListener('click', async (event) => {
-            if (event.target.id === 'saveNewTaskBtn') {
-                const button = event.target;
-                button.disabled = true;
-                button.textContent = 'Salvando...';
+            const saveButton = event.target.closest('#saveNewTaskBtn');
+            const deleteButton = event.target.closest('.delete-task-btn');
+
+            if (saveButton) {
+                saveButton.disabled = true;
+                saveButton.textContent = 'Salvando...';
 
                 const newTask = {
                     activity: document.getElementById('new-activity').value,
@@ -478,49 +488,49 @@
 
                 if (!newTask.activity) {
                     alert('O nome da atividade é obrigatório.');
-                    button.disabled = false;
-                    button.textContent = 'Salvar';
+                    saveButton.disabled = false;
+                    saveButton.textContent = 'Salvar';
                     return;
                 }
-
-                try {
-                    const response = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({ action: 'addTask', phase: currentPhase, task: newTask }),
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    });
-                    if (!response.ok) throw new Error (`Server responded with status: ${response.status}`);
-                    const result = await response.json();
-                    if (!result.success) {
-                        throw new Error(result.message || result.error);
-                    }
-                    // Refresh data from server to ensure sync
+                
+                const result = await postUpdate({ action: 'addTask', phase: currentPhase, task: newTask });
+                if(result.success) {
                     await initializeProject();
-                    openRaciModal(currentPhase); // Re-open modal with fresh data
-                } catch (error) {
-                     console.error('Falha ao adicionar nova tarefa:', error);
-                     alert('Não foi possível salvar a nova tarefa. Verifique o console para mais detalhes.');
-                } finally {
-                    addTaskBtn.style.display = 'flex';
+                    openRaciModal(currentPhase);
+                } else {
+                    alert('Não foi possível salvar a nova tarefa.');
+                }
+                addTaskBtn.style.display = 'flex';
+            }
+
+            if(deleteButton) {
+                if(confirm('Tem certeza que deseja excluir esta atividade? Esta ação não pode ser desfeita.')) {
+                    const phase = deleteButton.dataset.phase;
+                    const index = deleteButton.dataset.index;
+                    
+                    const result = await postUpdate({ action: 'deleteTask', phase, index });
+                    if(result.success) {
+                        await initializeProject();
+                        openRaciModal(phase);
+                    } else {
+                        alert('Não foi possível excluir a tarefa.');
+                    }
                 }
             }
         });
 
-
-        async function postUpdate(phase, index, type, value) {
+        async function postUpdate(payload) {
              try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ action: 'updateCheck', phase, index, type, value }),
+                    body: JSON.stringify(payload),
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 });
                 if (!response.ok) throw new Error (`Server responded with status: ${response.status}`);
-                const result = await response.json();
-                if (!result.success) {
-                    console.error('Falha ao salvar no Google Sheets:', result.message || result.error);
-                }
+                return await response.json();
             } catch (error) {
                 console.error('Erro de rede ao salvar no Google Sheets:', error);
+                return { success: false, error: error.message };
             }
         }
 
